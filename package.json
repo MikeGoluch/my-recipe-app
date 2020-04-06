@@ -1,0 +1,42 @@
+{
+  "name": "my-budget-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "structure": "mkdirp dist dist/css dist/img dist/js src src/js src/js/models src/js/views && touch webpack.config.js .babelrc .gitignore src/index.html src/js/index.js dist/index.html dist/css/style.css",
+    "packages": "npm install --save-dev babel-core@6 babel-preset-env@1 babel-loader@7 html-webpack-plugin webpack@4 webpack-cli@3 webpack-dev-server@3 && npm install --save axios babel-polyfill@6",
+    "init": "npm run structure && npm run packages",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "mkdirp": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "file-loader": "^5.0.2",
+    "gh-pages": "^2.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "push-dir": "^0.4.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.2"
+  }
+}
