@@ -35,11 +35,41 @@ const recipeMarkup = (recipe) => {
     resultsList.insertAdjacentHTML('beforeend', markup);
 }
 
-const displayRecipes = (recipes) => {
-    recipes.forEach((e) => {
+const displayButton = (curPage, type) => {
+    const btnMarkup = 
+    `<button class="btn-inline results__btn--${type}" data-page=${type === 'prev' ? curPage - 1 : curPage + 1}>
+        <span>Page ${type === 'prev' ? curPage - 1 : curPage + 1}</span>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+    </button>`
+    return btnMarkup;
+}
+const resultsListButtons = (resultsNumber, resultsPerPage, curPage) => {
+    const pagesNumber = Math.ceil(resultsNumber / resultsPerPage);
+    let pageBtn;
+    if (pagesNumber > 1 && curPage === 1) {
+        pageBtn = displayButton(curPage, 'next');
+    } else if (curPage < pagesNumber) {
+        pageBtn =`
+            ${displayButton(curPage, 'prev')}
+            ${displayButton(curPage, 'next')}
+        ` 
+    } else if (pagesNumber > 1 && curPage === pagesNumber) {
+        pageBtn = displayButton(curPage, 'prev');
+    }
+    document.querySelector(domPaths.resultsButtonPages).insertAdjacentHTML('afterbegin', pageBtn);
+}
+
+
+const displayRecipes = (recipes, resultsPerPage = 10, curPage = 3) => {
+    const start = (curPage - 1) * resultsPerPage;
+    const end = curPage * resultsPerPage;
+    recipes.slice(start, end).forEach((e) => {
         recipeMarkup(e);
     })
-}
+    resultsListButtons(recipes.length, resultsPerPage, curPage);
+};
 
 
 export { clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader }
