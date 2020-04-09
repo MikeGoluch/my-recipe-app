@@ -7,16 +7,32 @@ const clearInputField = () => {
 
 const clearResultsList = () => {
     document.querySelector(domPaths.resultsList).innerHTML = '';
-}
+};
 
 const displayLoader = () => {
     const loader = `<div class="loader"><svg><use href="img/icons.svg#icon-cw"></use></svg></div>`;
     document.querySelector(domPaths.results).insertAdjacentHTML('afterbegin', loader);
-}
+};
 
 const clearLoader = () => {
     document.querySelector(domPaths.loader).innerHTML = '';
+};
+
+const clearResultsButton = () => {
+    document.querySelector(domPaths.resultsButtonPages).innerHTML = '';
 }
+
+const shortenTitle = (title, letterLimit = 17) => {
+    const arr = []
+    const splitPhrase = title.split('');
+    splitPhrase.reduce((acc, cur) => {
+        if (acc + cur.length < letterLimit) {
+        arr.push(cur);
+        }
+        return acc + cur.length
+    }, 0);
+    return `${arr.join('')}...`;
+};
 
 const recipeMarkup = (recipe) => {
     const resultsList = document.querySelector(domPaths.resultsList);
@@ -27,13 +43,13 @@ const recipeMarkup = (recipe) => {
                 <img src="${recipe.image_url}" alt="${recipe.title}">
             </figure>
             <div class="results__data">
-                <h4 class="results__name">${recipe.title}</h4>
+                <h4 class="results__name">${shortenTitle(recipe.title)}</h4>
                 <p class="results__author">${recipe.publisher}</p>
             </div>
         </a>
     </li>`
     resultsList.insertAdjacentHTML('beforeend', markup);
-}
+};
 
 const displayButton = (curPage, type) => {
     const btnMarkup = 
@@ -44,7 +60,7 @@ const displayButton = (curPage, type) => {
         </svg>
     </button>`
     return btnMarkup;
-}
+};
 const resultsListButtons = (resultsNumber, resultsPerPage, curPage) => {
     const pagesNumber = Math.ceil(resultsNumber / resultsPerPage);
     let pageBtn;
@@ -59,17 +75,18 @@ const resultsListButtons = (resultsNumber, resultsPerPage, curPage) => {
         pageBtn = displayButton(curPage, 'prev');
     }
     document.querySelector(domPaths.resultsButtonPages).insertAdjacentHTML('afterbegin', pageBtn);
-}
+};
 
 
-const displayRecipes = (recipes, resultsPerPage = 10, curPage = 3) => {
+const displayRecipes = (recipes, resultsPerPage = 10, curPage = 1) => {
     const start = (curPage - 1) * resultsPerPage;
     const end = curPage * resultsPerPage;
     recipes.slice(start, end).forEach((e) => {
         recipeMarkup(e);
-    })
+    });
+    clearResultsButton();
     resultsListButtons(recipes.length, resultsPerPage, curPage);
 };
 
 
-export { clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader }
+export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader }

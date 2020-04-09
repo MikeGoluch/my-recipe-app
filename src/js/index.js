@@ -13,6 +13,7 @@ const recipeSearch = async () => {
         store.search = new Search(inputValue);
         searchView.clearInputField();
         searchView.clearResultsList();
+        searchView.clearResultsButton();
         searchView.displayLoader();
         try {
             await store.search.getSearchResults();
@@ -36,3 +37,11 @@ document.addEventListener('keypress', (e) => {
         recipeSearch();
     }
 });
+
+document.querySelector(domPaths.resultsButtonPages).addEventListener('click', (e) => {
+    const nextPage = parseInt(e.target.closest('button').dataset.page);
+    console.log(nextPage);
+    searchView.clearResultsList();
+    searchView.displayRecipes(store.search.result.data.recipes, undefined, nextPage);
+
+})
