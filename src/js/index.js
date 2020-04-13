@@ -1,7 +1,9 @@
 import '../style/style.css';
 import { domPaths } from './base';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import Search from './model/Search';
+import Recipe from './model/Recipe';
 
 const store = [];
 // const test = new Search('pizza');
@@ -45,3 +47,21 @@ document.querySelector(domPaths.resultsButtonPages).addEventListener('click', (e
     searchView.displayRecipes(store.search.result.data.recipes, undefined, nextPage);
 
 })
+
+
+window.onload = async () => {
+    store.recipe = new Recipe(47746);
+    searchView.displayLoader();
+    try {
+        await store.recipe.getSelectedRecipe();
+        searchView.clearLoader();
+        console.log(store.recipe)
+        store.recipe.convertedIngredients(store.recipe.ingredients);
+        recipeView.recipeMainMarkup(store.recipe);
+    } catch (error) {
+        console.log(error)
+    }
+    // console.log(store.recipe.title);
+    // console.log(store.recipe.ingredients);
+    // console.log(store.recipe.ingredients);
+}

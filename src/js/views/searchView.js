@@ -34,7 +34,7 @@ const shortenTitle = (title, letterLimit = 17) => {
     return `${arr.join('')}...`;
 };
 
-const recipeMarkup = (recipe) => {
+const recipeListMarkup = (recipe) => {
     const resultsList = document.querySelector(domPaths.resultsList);
     const markup = 
     `<li>
@@ -82,7 +82,7 @@ const displayRecipes = (recipes, resultsPerPage = 10, curPage = 1) => {
     const start = (curPage - 1) * resultsPerPage;
     const end = curPage * resultsPerPage;
     recipes.slice(start, end).forEach((e) => {
-        recipeMarkup(e);
+        recipeListMarkup(e);
     });
     clearResultsButton();
     resultsListButtons(recipes.length, resultsPerPage, curPage);
