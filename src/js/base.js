@@ -5,7 +5,8 @@ const domPaths = {
     resultsButtonPages: '.results__pages',
     results: '.results',
     loader: '.loader',
-    mainRecipe: '.recipe'
+    mainRecipe: '.recipe',
+    ingredientAmount: '.recipe__count'
 }
 
 export { domPaths }

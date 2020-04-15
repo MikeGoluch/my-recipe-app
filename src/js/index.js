@@ -48,20 +48,48 @@ document.querySelector(domPaths.resultsButtonPages).addEventListener('click', (e
 
 })
 
-
-window.onload = async () => {
-    store.recipe = new Recipe(47746);
-    searchView.displayLoader();
-    try {
-        await store.recipe.getSelectedRecipe();
-        searchView.clearLoader();
-        console.log(store.recipe)
-        store.recipe.convertedIngredients(store.recipe.ingredients);
-        recipeView.recipeMainMarkup(store.recipe);
-    } catch (error) {
-        console.log(error)
+const mainRecipeDisplay = async () => {
+    const hashId = window.location.hash;
+    const id = hashId.replace('#', '');
+    recipeView.clearMainRecipe();
+    if (id) {
+        store.recipe = new Recipe(id);
+        searchView.displayLoader();
+        try {
+            await store.recipe.getSelectedRecipe();
+            searchView.clearLoader();
+            console.log(store.recipe)
+            store.recipe.convertedIngredients(store.recipe.ingredients);
+            store.recipe.calculateServings();
+            store.recipe.calculateCookTime();
+            recipeView.recipeMainMarkup(store.recipe);
+        } catch (error) {
+            console.log(error)
+        }
     }
-    // console.log(store.recipe.title);
-    // console.log(store.recipe.ingredients);
-    // console.log(store.recipe.ingredients);
 }
+
+window.addEventListener('hashchange', () => {
+    mainRecipeDisplay();
+});
+
+window.addEventListener('load', () => {
+    mainRecipeDisplay();
+})
+
+
+document.querySelector(domPaths.mainRecipe).addEventListener('click', (e) => {
+    console.log(e.target.matches('.btn-plus, .btn-plus *'));
+    // const btnType = e.target.closest('.btn-tiny').dataset.type;
+    if (e.target.matches('.btn-plus, .btn-plus *')) {
+        store.recipe.updateIngredientsAmount('plus');
+        recipeView.displayUpdatedServings(store.recipe);
+        recipeView.displayUpdatedIngredients(store.recipe);
+    } else if (e.target.matches('.btn-minus, .btn-minus *')) {
+        if (store.recipe.servings > 1) {
+            store.recipe.updateIngredientsAmount('minus');
+            recipeView.displayUpdatedServings(store.recipe);
+            recipeView.displayUpdatedIngredients(store.recipe);
+        }
+    }
+})

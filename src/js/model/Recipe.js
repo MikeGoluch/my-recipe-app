@@ -107,6 +107,29 @@ class Recipe {
       });
       this.ingredients = convertedIng;
   }
+
+  calculateCookTime() {
+    const time = this.ingredients.length * 5;
+    this.time = time;
+  }
+
+  calculateServings() {
+    this.servings = 3;
+  }
+
+  updateIngredientsAmount(type) {
+    const servingsCount = type === 'plus' ? this.servings + 1 : this.servings - 1;
+
+    this.ingredients.forEach((cur) => {
+      console.log(typeof(cur.amount));
+      if (cur.amount !== '') {
+        cur.amount = (cur.amount * (servingsCount / this.servings)).toFixed(1);
+      } else if ((cur.amount) === '') {
+        cur.amount = '';
+      }
+    })
+    this.servings = servingsCount;
+  }
 }
 
 export default Recipe;
