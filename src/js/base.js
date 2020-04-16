@@ -6,7 +6,9 @@ const domPaths = {
     results: '.results',
     loader: '.loader',
     mainRecipe: '.recipe',
-    ingredientAmount: '.recipe__count'
+    ingredientAmount: '.recipe__count',
+    likedRecipeList: '.likes__list',
+    btnLove: '.recipe__love'
 }
 
 export { domPaths }

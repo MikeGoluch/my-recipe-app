@@ -9,9 +9,9 @@ const clearResultsList = () => {
     document.querySelector(domPaths.resultsList).innerHTML = '';
 };
 
-const displayLoader = () => {
+const displayLoader = (parentElement) => {
     const loader = `<div class="loader"><svg><use href="img/icons.svg#icon-cw"></use></svg></div>`;
-    document.querySelector(domPaths.results).insertAdjacentHTML('afterbegin', loader);
+    document.querySelector(parentElement).insertAdjacentHTML('afterbegin', loader);
 };
 
 const clearLoader = () => {
@@ -89,4 +89,4 @@ const displayRecipes = (recipes, resultsPerPage = 10, curPage = 1) => {
 };
 
 
-export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader }
+export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader, shortenTitle }

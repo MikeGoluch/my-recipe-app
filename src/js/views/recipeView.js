@@ -19,7 +19,8 @@ const ingredientMainMarkup = (ingredient) => {
 }
 
 
-const recipeMainMarkup = (data) => {
+
+const recipeMainMarkup = (data, isLiked) => {
     const mainRecipe = document.querySelector(domPaths.mainRecipe);
     const markup = `
     <figure class="recipe__fig">
@@ -57,7 +58,7 @@ const recipeMainMarkup = (data) => {
         </div>
         <button class="recipe__love">
             <svg class="header__likes">
-                <use href="img/icons.svg#icon-heart-outlined"></use>
+                <use href="img/icons.svg#icon-heart${isLiked ? '' : '-outlined'}"></use>
             </svg>
         </button>
     </div>
@@ -98,19 +99,14 @@ const displayUpdatedServings = (data) => {
 
 const displayUpdatedIngredients = (updated) => {
     const oldIng = Array.from(document.querySelectorAll(domPaths.ingredientAmount));
-    // console.log(oldIng);
     oldIng.forEach((cur, index) => {
-        console.log(cur.innerText);
-  
-            cur.textContent = updated.ingredients[index].amount;
-      
-         
-        
+        cur.textContent = updated.ingredients[index].amount;
     })
 }
 
 const clearMainRecipe = () => {
     document.querySelector(domPaths.mainRecipe).innerHTML = '';
 };
+
 
 export { clearMainRecipe, recipeMainMarkup, displayUpdatedServings, displayUpdatedIngredients }

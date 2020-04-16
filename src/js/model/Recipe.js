@@ -55,7 +55,6 @@ class Recipe {
         return outcome;
       } else if (string.length === 1) {
         const integer = string[0];
-        console.log(parseInt(integer));
         return parseInt(integer);
       } else if (string.length === 3) {
         const integer = string[0];
