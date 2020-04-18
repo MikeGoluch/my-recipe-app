@@ -8,7 +8,8 @@ const domPaths = {
     mainRecipe: '.recipe',
     ingredientAmount: '.recipe__count',
     likedRecipeList: '.likes__list',
-    btnLove: '.recipe__love'
+    shoppingList: '.shopping__list',
+    likedMenu: '.likes__field'
 }
 
 export { domPaths }

@@ -30,4 +30,10 @@ const likeButtonToggle = (isLiked) => {
     document.querySelector('.recipe__love use').setAttribute('href', `img/icons.svg#${changeIcon}`)
 }
 
-export { displayLikedRecipe, deleteLikedRecipe, likeButtonToggle }
+const likedMenu = (likesList) => {
+    const likeIcon = document.querySelector(domPaths.likedMenu);
+    console.log(domPaths.likedMenu)
+    likesList.length > 0 ? likeIcon.style.visibility = 'visible' : likeIcon.style.visibility = 'hidden'
+}
+
+export { displayLikedRecipe, deleteLikedRecipe, likeButtonToggle, likedMenu }

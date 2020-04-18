@@ -17,7 +17,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
-    "mkdirp": "^1.0.3"
+    "mkdirp": "^1.0.3",
+    "uniqid": "^5.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

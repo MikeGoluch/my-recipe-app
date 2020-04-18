@@ -2,8 +2,10 @@ import '../style/style.css';
 import { domPaths } from './base';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
-import * as likesView from './views/likesView'
-import Likes from './model/Likes'
+import * as likesView from './views/likesView';
+import * as listView from './views/listView';
+import Likes from './model/Likes';
+import List from './model/List';
 import Search from './model/Search';
 import Recipe from './model/Recipe';
 
@@ -80,8 +82,37 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', () => {
     recipeController();
+});
+
+const listController = () => {
+    store.list = new List();
+    store.recipe.ingredients.forEach((cur) => {
+        store.list.addElement(
+            cur.amount,
+            cur.unit,
+            cur.description);
+    })
+    console.log('check', store.list);
+    store.list.elements.forEach((cur) => {
+        listView.displayListsElement(cur)
+    })
+    // listView.displayListsElement(store.list);
+    //
+};
+
+
+
+window.addEventListener('load', () => {
+    store.likes = new Likes();
+    const retrievedData = store.likes.retrieveStorageData();
+    likesView.likedMenu(retrievedData)
+    console.log(retrievedData)
+    retrievedData.forEach((cur) => {
+        likesView.displayLikedRecipe(cur);
+    })
+
+
 })
-store.likes = new Likes();
 
 const likeController = () => {
     // const likedRecipeId = store.recipe.id;
@@ -110,8 +141,6 @@ const likeController = () => {
 
 
 document.querySelector(domPaths.mainRecipe).addEventListener('click', (e) => {
-    // console.log(e.target.matches('.btn-plus, .btn-plus *'));
-    // const btnType = e.target.closest('.btn-tiny').dataset.type;
     if (e.target.matches('.btn-plus, .btn-plus *')) {
         store.recipe.updateIngredientsAmount('plus');
         recipeView.displayUpdatedServings(store.recipe);
@@ -124,7 +153,22 @@ document.querySelector(domPaths.mainRecipe).addEventListener('click', (e) => {
         }
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
         // console.log(e.returnValue);
-likeController();
+        likeController();
 
+    } else if (e.target.matches('.recipe__btn, .recipe__btn *')) {
+        listController();
+    }
+});
+
+
+
+document.querySelector(domPaths.shoppingList).addEventListener('click', (e) => {
+    const elementId = e.target.closest('.shopping__item').dataset.id;
+    console.log(elementId);
+    if (e.target.matches('.shopping__delete, .shopping__delete *')) {
+        store.list.deleteElement(elementId);
+        listView.deleteListsElement(elementId);
+
+        // console.log(e.target)
     }
 })

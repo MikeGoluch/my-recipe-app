@@ -6,6 +6,8 @@ class Likes {
     addLikedRecipe(id, img, title, author) {
         const liked = { id, img, title, author }
         this.likes.push(liked);
+        this.addStorageData();
+
         return liked;
     }
 
@@ -13,7 +15,8 @@ class Likes {
         const index = this.likes.findIndex((el) => {
             el.id === id;
         })
-        this.likes.splice(index, 1)
+        this.likes.splice(index, 1);
+        this.addStorageData();
     }
 
     isLiked(id) {
@@ -21,6 +24,18 @@ class Likes {
             return el.id === id
         })
         return index !== -1
+    }
+
+    addStorageData() {
+        localStorage.setItem('likes', JSON.stringify(this.likes));
+    }
+
+    retrieveStorageData() {
+        const retrievedData = JSON.parse(localStorage.getItem('likes'));
+        if (retrievedData) {
+            this.likes = retrievedData;
+        }
+        return retrievedData;
     }
     
     

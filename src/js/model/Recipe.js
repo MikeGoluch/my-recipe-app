@@ -27,6 +27,7 @@ class Recipe {
         ingredient = ingredient.replace(cur, unitsShort[index]);
         // console.log('u', ingredient);
       });
+      // console.log('ing', ingredient)
       return ingredient
     }
 
@@ -54,7 +55,8 @@ class Recipe {
         // console.log('2', outcome);
         return outcome;
       } else if (string.length === 1) {
-        const integer = string[0];
+        const integer = parseInt(string[0]);
+        // console.log(integer)
         return parseInt(integer);
       } else if (string.length === 3) {
         const integer = string[0];
@@ -67,17 +69,31 @@ class Recipe {
     }
 
     convertAmount(ingredient) {
+      const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound', 'kg', 'g'];
       let amount;
       let unit;
       let description;
       const regexNumbers = /\d+/g;
       const regexLetters = /[a-zA-Z]+/g;
+      const firstWord = / .*/;
       if (ingredient.match(regexNumbers) !== null) {
         amount = this.calculateFraction(ingredient.match(regexNumbers));
+        // console.log('am', amount);
         description = ingredient.slice(ingredient.search(regexLetters), ingredient.length);
-        unit = description.replace(/ .*/,'');
-        // console.log(unit.length)
-        description = description.substr(unit.length + 1, description.length)
+        console.log('des', description);
+        console.log('replace', description.match(/^\w+/)[0])
+        if (unitsShort.findIndex(el => el === description.match(/^\w+/)[0]) !== -1) {
+          unit = description.replace(firstWord,'');
+          // console.log('1', unit)
+        } else {
+          unit = '';
+          // console.log('2', unit)
+
+        }
+        // console.log('obj', unit)
+        description = (description.substr(unit.length, description.length)).trim();
+        // console.log('des1', description);
+
         return {
           amount,
           unit,
