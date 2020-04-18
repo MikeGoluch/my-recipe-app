@@ -15,28 +15,31 @@ const displayLoader = (parentElement) => {
 };
 
 const clearLoader = () => {
-    document.querySelector(domPaths.loader).innerHTML = '';
+    const loader = document.querySelector('.loader');
+    if (loader) {
+        loader.parentElement.removeChild(loader);
+    }
 };
 
 const clearResultsButton = () => {
     document.querySelector(domPaths.resultsButtonPages).innerHTML = '';
-}
+};
 
 const shortenTitle = (title, letterLimit = 17) => {
-    const arr = []
+    const arr = [];
     const splitPhrase = title.split('');
     splitPhrase.reduce((acc, cur) => {
         if (acc + cur.length < letterLimit) {
         arr.push(cur);
         }
-        return acc + cur.length
+        return acc + cur.length;
     }, 0);
     return `${arr.join('')}...`;
 };
 
 const recipeListMarkup = (recipe) => {
     const resultsList = document.querySelector(domPaths.resultsList);
-    const markup = 
+    const markup =
     `<li>
         <a class="results__link results__link--active" href="#${recipe.recipe_id}">
             <figure class="results__fig">
@@ -47,18 +50,20 @@ const recipeListMarkup = (recipe) => {
                 <p class="results__author">${recipe.publisher}</p>
             </div>
         </a>
-    </li>`
+    </li>
+    `;
     resultsList.insertAdjacentHTML('beforeend', markup);
 };
 
 const displayButton = (curPage, type) => {
-    const btnMarkup = 
+    const btnMarkup =
     `<button class="btn-inline results__btn--${type}" data-page=${type === 'prev' ? curPage - 1 : curPage + 1}>
         <span>Page ${type === 'prev' ? curPage - 1 : curPage + 1}</span>
         <svg class="search__icon">
             <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
         </svg>
-    </button>`
+    </button>
+    `;
     return btnMarkup;
 };
 const resultsListButtons = (resultsNumber, resultsPerPage, curPage) => {
@@ -67,10 +72,11 @@ const resultsListButtons = (resultsNumber, resultsPerPage, curPage) => {
     if (pagesNumber > 1 && curPage === 1) {
         pageBtn = displayButton(curPage, 'next');
     } else if (curPage < pagesNumber) {
-        pageBtn =`
+        pageBtn =
+        `
             ${displayButton(curPage, 'prev')}
             ${displayButton(curPage, 'next')}
-        ` 
+        `;
     } else if (pagesNumber > 1 && curPage === pagesNumber) {
         pageBtn = displayButton(curPage, 'prev');
     }
@@ -88,5 +94,4 @@ const displayRecipes = (recipes, resultsPerPage = 10, curPage = 1) => {
     resultsListButtons(recipes.length, resultsPerPage, curPage);
 };
 
-
-export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader, shortenTitle }
+export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader, shortenTitle };

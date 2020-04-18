@@ -1,6 +1,5 @@
 import { domPaths } from '../base';
 
-
 const displayListsElement = (element) => {
     const markup = `
         <li class="shopping__item" data-id="${element.id}">
@@ -14,7 +13,8 @@ const displayListsElement = (element) => {
                     <use href="img/icons.svg#icon-circle-with-cross"></use>
                 </svg>
             </button>
-        </li>`
+        </li>
+        `;
     const markup2 = `
         <li class="shopping__item" data-id="${element.id}">
             <p class="shopping__description">${element.description}</p>
@@ -23,8 +23,9 @@ const displayListsElement = (element) => {
                     <use href="img/icons.svg#icon-circle-with-cross"></use>
                 </svg>
             </button>
-        </li>`
-    if (typeof(element.amount) === 'number') {
+        </li>
+        `;
+    if (typeof (element.amount) === 'number') {
         document.querySelector(domPaths.shoppingList).insertAdjacentHTML('beforeend', markup);
     } else {
         document.querySelector(domPaths.shoppingList).insertAdjacentHTML('beforeend', markup2);
@@ -34,6 +35,6 @@ const displayListsElement = (element) => {
 const deleteListsElement = (id) => {
     const element = document.querySelector(`[data-id*="${id}"]`);
     element.parentElement.removeChild(element);
-}
+};
 
-export { displayListsElement, deleteListsElement }
+export { displayListsElement, deleteListsElement };

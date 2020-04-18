@@ -10,11 +10,9 @@ import Search from './model/Search';
 import Recipe from './model/Recipe';
 
 const store = [];
-// const test = new Search('pizza');
-// console.log(test.getSearchResults());
+
 const searchController = async () => {
     const inputValue = document.querySelector(domPaths.searchInput).value;
-    // const inputValue = 'pizza';
     if (inputValue) {
         store.search = new Search(inputValue);
         searchView.clearInputField();
@@ -23,9 +21,7 @@ const searchController = async () => {
         searchView.displayLoader(domPaths.resultsList);
         try {
             await store.search.getSearchResults();
-            // console.log('res', results);
             searchView.clearLoader();
-            console.log('res1', store.search.result);
             searchView.displayRecipes(store.search.result.data.recipes);
         } catch (error) {
             console.log(error);
@@ -46,7 +42,6 @@ document.addEventListener('keypress', (e) => {
 
 document.querySelector(domPaths.resultsButtonPages).addEventListener('click', (e) => {
     const nextPage = parseInt(e.target.closest('button').dataset.page);
-    console.log(nextPage);
     searchView.clearResultsList();
     searchView.displayRecipes(store.search.result.data.recipes, undefined, nextPage);
 
@@ -62,7 +57,6 @@ const recipeController = async () => {
         try {
             await store.recipe.getSelectedRecipe();
             searchView.clearLoader();
-            console.log(store.recipe)
             store.recipe.convertedIngredients(store.recipe.ingredients);
             store.recipe.calculateServings();
             store.recipe.calculateCookTime();
@@ -92,12 +86,9 @@ const listController = () => {
             cur.unit,
             cur.description);
     })
-    console.log('check', store.list);
     store.list.elements.forEach((cur) => {
         listView.displayListsElement(cur)
     })
-    // listView.displayListsElement(store.list);
-    //
 };
 
 
@@ -106,7 +97,6 @@ window.addEventListener('load', () => {
     store.likes = new Likes();
     const retrievedData = store.likes.retrieveStorageData();
     likesView.likedMenu(retrievedData)
-    console.log(retrievedData)
     retrievedData.forEach((cur) => {
         likesView.displayLikedRecipe(cur);
     })
@@ -115,7 +105,6 @@ window.addEventListener('load', () => {
 })
 
 const likeController = () => {
-    // const likedRecipeId = store.recipe.id;
     if (!store.likes) {
         store.likes = new Likes();
     }
@@ -128,13 +117,11 @@ const likeController = () => {
             store.recipe.publisher)
         likesView.likeButtonToggle(true);
         likesView.displayLikedRecipe(likedRecipe);
-        console.log(store.likes)
     } else {
         
         store.likes.deleteLikedRecipe(likedRecipeId);
         likesView.likeButtonToggle(false);
         likesView.deleteLikedRecipe(likedRecipeId)
-        console.log(store.likes);
     }
 }
 
@@ -152,7 +139,6 @@ document.querySelector(domPaths.mainRecipe).addEventListener('click', (e) => {
             recipeView.displayUpdatedIngredients(store.recipe);
         }
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
-        // console.log(e.returnValue);
         likeController();
 
     } else if (e.target.matches('.recipe__btn, .recipe__btn *')) {
@@ -164,11 +150,8 @@ document.querySelector(domPaths.mainRecipe).addEventListener('click', (e) => {
 
 document.querySelector(domPaths.shoppingList).addEventListener('click', (e) => {
     const elementId = e.target.closest('.shopping__item').dataset.id;
-    console.log(elementId);
     if (e.target.matches('.shopping__delete, .shopping__delete *')) {
         store.list.deleteElement(elementId);
         listView.deleteListsElement(elementId);
-
-        // console.log(e.target)
     }
 })

@@ -25,9 +25,7 @@ class Recipe {
       
       unitsLong.forEach((cur, index) => {
         ingredient = ingredient.replace(cur, unitsShort[index]);
-        // console.log('u', ingredient);
       });
-      // console.log('ing', ingredient)
       return ingredient
     }
 
@@ -35,12 +33,9 @@ class Recipe {
       const regexParenthesis = /\(.*?\)/g;
       const regexWhiteSpaces = /\s+/g;
       ingredient = ingredient.toLowerCase();
-      // console.log('1', ingredient)
       ingredient = ingredient.replace(regexParenthesis, '');
-      // console.log('2', ingredient)
     
       ingredient = ingredient.replace(regexWhiteSpaces, ' ').trim();
-      // console.log('3', ingredient)
     
       return ingredient;
     }
@@ -52,18 +47,15 @@ class Recipe {
         const numerator = string[0];
         const denominator = string[1];
         const outcome = parseInt(numerator) / parseInt(denominator);
-        // console.log('2', outcome);
         return outcome;
       } else if (string.length === 1) {
         const integer = parseInt(string[0]);
-        // console.log(integer)
         return parseInt(integer);
       } else if (string.length === 3) {
         const integer = string[0];
         const numerator = string[1];
         const denominator = string[2];
         const outcome = parseInt(integer) + (parseInt(numerator) / parseInt(denominator));
-        // console.log('3', outcome);
         return outcome;
       }
     }
@@ -78,21 +70,13 @@ class Recipe {
       const firstWord = / .*/;
       if (ingredient.match(regexNumbers) !== null) {
         amount = this.calculateFraction(ingredient.match(regexNumbers));
-        // console.log('am', amount);
         description = ingredient.slice(ingredient.search(regexLetters), ingredient.length);
-        console.log('des', description);
-        console.log('replace', description.match(/^\w+/)[0])
         if (unitsShort.findIndex(el => el === description.match(/^\w+/)[0]) !== -1) {
           unit = description.replace(firstWord,'');
-          // console.log('1', unit)
         } else {
           unit = '';
-          // console.log('2', unit)
-
         }
-        // console.log('obj', unit)
         description = (description.substr(unit.length, description.length)).trim();
-        // console.log('des1', description);
 
         return {
           amount,
@@ -112,11 +96,8 @@ class Recipe {
     convertedIngredients(){
       const convertedIng = this.ingredients.map((el) => {
         const strings = this.convertStrings(el);
-        // console.log('strings', strings);
         const units = this.convertUnits(strings);
-        // console.log('units', units);
         const amount = this.convertAmount(units);
-        // console.log('amount', amount);
         el = amount;
         return el
       });
@@ -136,7 +117,6 @@ class Recipe {
     const servingsCount = type === 'plus' ? this.servings + 1 : this.servings - 1;
 
     this.ingredients.forEach((cur) => {
-      console.log(typeof(cur.amount));
       if (cur.amount !== '') {
         cur.amount = (cur.amount * (servingsCount / this.servings)).toFixed(1);
       } else if ((cur.amount) === '') {

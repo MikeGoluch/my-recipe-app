@@ -1,6 +1,5 @@
 import uniqid from 'uniqid';
 
-
 class List {
     constructor() {
         this.elements = [];
@@ -25,4 +24,4 @@ class List {
     }
 }
 
-export default List
+export default List;

@@ -10,6 +10,6 @@ const domPaths = {
     likedRecipeList: '.likes__list',
     shoppingList: '.shopping__list',
     likedMenu: '.likes__field'
-}
+};
 
-export { domPaths }
+export { domPaths };

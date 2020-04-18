@@ -1,8 +1,6 @@
 import { domPaths } from '../base';
 
-
 const ingredientMainMarkup = (ingredient) => {
-    // console.log('asd', ingredient)
     const markup = `
         <li class="recipe__item">
             <svg class="recipe__icon">
@@ -14,11 +12,9 @@ const ingredientMainMarkup = (ingredient) => {
                 ${ingredient.description}
             </div>
         </li>
-    `
+    `;
     return markup;
-}
-
-
+};
 
 const recipeMainMarkup = (data, isLiked) => {
     const mainRecipe = document.querySelector(domPaths.mainRecipe);
@@ -89,24 +85,24 @@ const recipeMainMarkup = (data, isLiked) => {
 
         </a>
     </div>
-    `
+    `;
     mainRecipe.insertAdjacentHTML('afterbegin', markup);
-}
+};
 
 const displayUpdatedServings = (data) => {
         document.querySelector('.recipe__info-data--people').textContent = data.servings;
-}
+};
 
 const displayUpdatedIngredients = (updated) => {
     const oldIng = Array.from(document.querySelectorAll(domPaths.ingredientAmount));
     oldIng.forEach((cur, index) => {
         cur.textContent = updated.ingredients[index].amount;
-    })
-}
+    });
+};
 
 const clearMainRecipe = () => {
     document.querySelector(domPaths.mainRecipe).innerHTML = '';
 };
 
 
-export { clearMainRecipe, recipeMainMarkup, displayUpdatedServings, displayUpdatedIngredients }
+export { clearMainRecipe, recipeMainMarkup, displayUpdatedServings, displayUpdatedIngredients };

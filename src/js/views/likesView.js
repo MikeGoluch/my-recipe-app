@@ -1,6 +1,5 @@
 import { domPaths } from '../base';
-import shortenTitle from './searchView'
-
+import shortenTitle from './searchView';
 
 const displayLikedRecipe = (liked) => {
     const likedRecipeList = document.querySelector(domPaths.likedRecipeList);
@@ -16,24 +15,23 @@ const displayLikedRecipe = (liked) => {
                 </div>
             </a>
         </li>
-    `
+    `;
     likedRecipeList.insertAdjacentHTML('beforeend', markup);
-}
+};
 
 const deleteLikedRecipe = (id) => {
     const element = document.querySelector(`.likes__link[href*="${id}"]`).parentElement;
     element.parentElement.removeChild(element);
-}
+};
 
 const likeButtonToggle = (isLiked) => {
     const changeIcon = isLiked ? 'icon-heart' : 'icon-heart-outlined';
-    document.querySelector('.recipe__love use').setAttribute('href', `img/icons.svg#${changeIcon}`)
-}
+    document.querySelector('.recipe__love use').setAttribute('href', `img/icons.svg#${changeIcon}`);
+};
 
 const likedMenu = (likesList) => {
     const likeIcon = document.querySelector(domPaths.likedMenu);
-    console.log(domPaths.likedMenu)
-    likesList.length > 0 ? likeIcon.style.visibility = 'visible' : likeIcon.style.visibility = 'hidden'
-}
+    likesList.length > 0 ? likeIcon.style.visibility = 'visible' : likeIcon.style.visibility = 'hidden';
+};
 
-export { displayLikedRecipe, deleteLikedRecipe, likeButtonToggle, likedMenu }
+export { displayLikedRecipe, deleteLikedRecipe, likeButtonToggle, likedMenu };

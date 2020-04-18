@@ -9,7 +9,6 @@ class Search {
         try {
             const result = await axios(`https://forkify-api.herokuapp.com/api/search?&q=${this.query}`);
             this.result = result;
-            // console.log(results);
         } catch(error) {
             console.log(error);
         }

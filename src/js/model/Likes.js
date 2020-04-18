@@ -1,10 +1,10 @@
 class Likes {
     constructor() {
-        this.likes = []
+        this.likes = [];
     }
 
     addLikedRecipe(id, img, title, author) {
-        const liked = { id, img, title, author }
+        const liked = { id, img, title, author };
         this.likes.push(liked);
         this.addStorageData();
 
@@ -14,16 +14,16 @@ class Likes {
     deleteLikedRecipe(id) {
         const index = this.likes.findIndex((el) => {
             el.id === id;
-        })
+        });
         this.likes.splice(index, 1);
         this.addStorageData();
     }
 
     isLiked(id) {
         const index = this.likes.findIndex((el) => {
-            return el.id === id
-        })
-        return index !== -1
+            return el.id === id;
+        });
+        return index !== -1;
     }
 
     addStorageData() {
@@ -37,8 +37,6 @@ class Likes {
         }
         return retrievedData;
     }
-    
-    
 }
 
 export default Likes;
