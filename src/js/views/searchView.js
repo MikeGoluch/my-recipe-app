@@ -41,7 +41,7 @@ const recipeListMarkup = (recipe) => {
     const resultsList = document.querySelector(domPaths.resultsList);
     const markup =
     `<li>
-        <a class="results__link results__link--active" href="#${recipe.recipe_id}">
+        <a class="results__link" href="#${recipe.recipe_id}">
             <figure class="results__fig">
                 <img src="${recipe.image_url}" alt="${recipe.title}">
             </figure>
@@ -83,7 +83,6 @@ const resultsListButtons = (resultsNumber, resultsPerPage, curPage) => {
     document.querySelector(domPaths.resultsButtonPages).insertAdjacentHTML('afterbegin', pageBtn);
 };
 
-
 const displayRecipes = (recipes, resultsPerPage = 10, curPage = 1) => {
     const start = (curPage - 1) * resultsPerPage;
     const end = curPage * resultsPerPage;
@@ -94,4 +93,15 @@ const displayRecipes = (recipes, resultsPerPage = 10, curPage = 1) => {
     resultsListButtons(recipes.length, resultsPerPage, curPage);
 };
 
-export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader, shortenTitle };
+const highlightSelectedRecipe = (id) => {
+    const recipes = Array.from(document.querySelectorAll(domPaths.recipesListLinks));
+    recipes.forEach((cur) => {
+        cur.classList.remove('results__link--active');
+    });
+    const item = document.querySelector(`.results__link[href*="${id}"]`);
+    if (item) {
+        item.classList.add('results__link--active');
+    };
+};
+
+export { clearResultsButton, clearInputField, clearResultsList, displayRecipes, displayLoader, clearLoader, shortenTitle, highlightSelectedRecipe };

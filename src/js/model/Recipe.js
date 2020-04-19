@@ -47,7 +47,7 @@ class Recipe {
         const numerator = string[0];
         const denominator = string[1];
         const outcome = parseInt(numerator) / parseInt(denominator);
-        return outcome;
+        return outcome.toFixed(1);
       } else if (string.length === 1) {
         const integer = parseInt(string[0]);
         return parseInt(integer);
@@ -56,7 +56,7 @@ class Recipe {
         const numerator = string[1];
         const denominator = string[2];
         const outcome = parseInt(integer) + (parseInt(numerator) / parseInt(denominator));
-        return outcome;
+        return outcome.toFixed(1);
       }
     }
 

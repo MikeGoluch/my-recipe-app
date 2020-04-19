@@ -24,15 +24,6 @@ module.exports = {
                     { loader: 'css-loader', options: { url: true } }
                 ]
             },
-            // {
-            //     test: /\.s[ac]ss$/i,
-            //     exclude: /node_modules/,
-            //     use: [
-            //         "style-loader",
-            //         "css-loader",
-            //         "sass-loader"
-            //       ],
-            // },
             {
                 test: /\.js$/,
                 exclude: /node-modules/,
@@ -46,28 +37,15 @@ module.exports = {
                 use: [{
                     loader: 'file-loader',
                     options: {
-                        outputPath: 'img/content',
-                        name: '[name].[ext]'
+                        outputPath: '../img'
                     }
                 }]
             },
-            // {
-            //     test: /\.(woff|woff2|eot|ttf|otf)$/,
-            //     exclude: /node_modules/,
-            //     use: {
-            //       loader: 'file-loader',
-            //       options: {
-            //         outputPath: 'fonts/',
-            //         name: '[name].[ext]'
-            //       },
-            //     },
-            // },
         ]
     },
     plugins: [
         new CopyPlugin([
             { from: './src/img', to: './img' },
-            // { from: './src/fonts', to: './fonts' },
         ]),
         new HtmlWebpackPlugin({
                 template: './src/index.html'

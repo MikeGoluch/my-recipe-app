@@ -1,5 +1,4 @@
 import { domPaths } from '../base';
-import shortenTitle from './searchView';
 
 const displayLikedRecipe = (liked) => {
     const likedRecipeList = document.querySelector(domPaths.likedRecipeList);

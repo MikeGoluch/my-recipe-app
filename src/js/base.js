@@ -3,6 +3,7 @@ const domPaths = {
     searchInput: '.search__field',
     resultsList: '.results__list',
     resultsButtonPages: '.results__pages',
+    recipesListLinks: '.results__link',
     results: '.results',
     loader: '.loader',
     mainRecipe: '.recipe',

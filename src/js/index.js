@@ -54,6 +54,9 @@ const recipeController = async () => {
     if (id) {
         store.recipe = new Recipe(id);
         searchView.displayLoader(domPaths.mainRecipe);
+        if (store.search) {
+            searchView.highlightSelectedRecipe(id);
+        }
         try {
             await store.recipe.getSelectedRecipe();
             searchView.clearLoader();
@@ -70,7 +73,7 @@ const recipeController = async () => {
     }
 }
 
-window.addEventListener('hashchange', () => {
+window.addEventListener('hashchange', (e) => {
     recipeController();
 });
 
@@ -91,8 +94,6 @@ const listController = () => {
     })
 };
 
-
-
 window.addEventListener('load', () => {
     store.likes = new Likes();
     const retrievedData = store.likes.retrieveStorageData();
@@ -100,9 +101,7 @@ window.addEventListener('load', () => {
     retrievedData.forEach((cur) => {
         likesView.displayLikedRecipe(cur);
     })
-
-
-})
+});
 
 const likeController = () => {
     if (!store.likes) {
@@ -118,14 +117,11 @@ const likeController = () => {
         likesView.likeButtonToggle(true);
         likesView.displayLikedRecipe(likedRecipe);
     } else {
-        
         store.likes.deleteLikedRecipe(likedRecipeId);
         likesView.likeButtonToggle(false);
         likesView.deleteLikedRecipe(likedRecipeId)
     }
-}
-
-
+};
 
 document.querySelector(domPaths.mainRecipe).addEventListener('click', (e) => {
     if (e.target.matches('.btn-plus, .btn-plus *')) {
@@ -154,4 +150,4 @@ document.querySelector(domPaths.shoppingList).addEventListener('click', (e) => {
         store.list.deleteElement(elementId);
         listView.deleteListsElement(elementId);
     }
-})
+});
